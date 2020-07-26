@@ -1,4 +1,4 @@
-# understandingvue
+# Restful Api Vue Project
 
 ## Project setup
 ```
