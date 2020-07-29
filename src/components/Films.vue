@@ -37,7 +37,7 @@
         <v-row class="mb-6" justify="center" dense>
           <v-col xs="12" sm="12" md="12" lg="12">
             <v-card dark class="mt-5">
-              <v-card-title class="card-title">People</v-card-title>
+              <v-card-title class="card-title">Characters</v-card-title>
             </v-card>
           </v-col>
           <v-col xs="12" sm="12" md="4" lg="3" v-for="ppl in film.peopleData" v-bind:key="ppl.id">

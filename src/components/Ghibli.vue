@@ -4,7 +4,17 @@
     <v-row justify="center">
       <v-col xs="12" sm="12" md="11" lg="10">
         <v-card>
-          <v-card-text>Hey the Studio Ghibli api doesn't have any images, and a lot of the data isn't interconnected, but each film is like a relaxing disney film that's really soothing. I got accustomed to all the different directives, emits, binds, and conditionals while I built these out. This one's a little rough around the edges with formatting, but it's responsive and has nested api calls for all the encompassing data. I'd just run a single query with a complex sql query on my back end to make this easier on the eyes and to work on the front end.</v-card-text>
+          <v-card-text
+            >Hey the Studio Ghibli api doesn't have any images, and a lot of the
+            data isn't interconnected, but each film is like a relaxing disney
+            film that's really soothing. I got accustomed to all the different
+            directives, emits, binds, and conditionals while I built these out.
+            This one's a little rough around the edges with formatting, but it's
+            responsive and has nested api calls for all the encompassing data.
+            I'd just run a single query with a complex sql query on my back end
+            to make this easier on the eyes and to work on the front
+            end.</v-card-text
+          >
         </v-card>
       </v-col>
     </v-row>
@@ -74,24 +84,8 @@ export default {
                 )
                 .catch((err) => console.log(`Get error people`, err));
             }
-            /* 
-            "id": "986faac6-67e3-4fb8-a9ee-bad077c2e7fe",
-            "name": "Satsuki Kusakabe",
-            "gender": "Female",
-            "age": "11",
-            "eye_color": "Dark Brown/Black",
-            "hair_color": "Dark Brown",
-            "films": [
-                "https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49"
-            ],
-            "species": "https://ghibliapi.herokuapp.com/species/af3910a6-429f-4c74-9ad5-dfe1c4aa04f2",
-            "url": "https://ghibliapi.herokuapp.com/people/986faac6-67e3-4fb8-a9ee-bad077c2e7fe",
-            "length": null
-            */
           }
-          if (
-            res.data[0].species[0] != `https://ghibliapi.herokuapp.com/species/`
-          ) {
+          if (res.data[0].species.length != 1) {
             filmResData.species = res.data[0].species;
             for (let s = 0; s < filmResData.species.length; s++) {
               axios
@@ -105,17 +99,6 @@ export default {
                 )
                 .catch((err) => console.log(`Get error species`, err));
             }
-            /* 
-            "id": "af3910a6-429f-4c74-9ad5-dfe1c4aa04f2",
-            "name": "Human",
-            "classification": "Mammal",
-            "eye_colors": "Black, Blue, Brown, Grey, Green, Hazel",
-            "hair_colors": "Black, Blonde, Brown, Grey, White",
-            "people": [],
-            "films": [],
-            "url": "https://ghibliapi.herokuapp.com/species/af3910a6-429f-4c74-9ad5-dfe1c4aa04f2",
-            "length": null
-            */
           }
           if (
             res.data[0].locations[0] !=
