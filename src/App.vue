@@ -13,17 +13,6 @@
           </v-list-item>
         </router-link>
 
-        <router-link to="/studio-ghibli">
-          <v-list-item link>
-            <v-list-item-action>
-              <v-icon>mdi-alpha-s-box</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Studio Ghibli</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </router-link>
-
         <router-link to="/rick-and-morty">
           <v-list-item link>
             <v-list-item-action>
@@ -31,6 +20,17 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Rick & Morty</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </router-link>
+
+        <router-link to="/studio-ghibli">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-alpha-s-box</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Studio Ghibli</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </router-link>
