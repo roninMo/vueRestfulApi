@@ -82,11 +82,6 @@
   </div>
 </template>
 
-<!-- 
-Add Comments,
-Edit/Delete Posts
--->
-
 <script>
 import EditPost from "./EditPost";
 
