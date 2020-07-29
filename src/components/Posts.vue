@@ -106,7 +106,7 @@ export default {
         body: this.comment,
       };
       this.$emit("create-comment", newComment);
-      this.title = "";
+      this.comment = "";
     },
     editPostPass(editPostData) {
       this.$emit("edit-post", editPostData);

@@ -61,11 +61,13 @@ export default {
     addComment(comment) {
       axios
         .post(`https://jsonplaceholder.typicode.com/posts`, comment)
-        .then((res) => console.log(`Successfully created post!`, res))
+        .then((res) => console.log(`Successfully created comment!`, res))
         .catch((err) => console.log(err));
       for (let i = 0; i < this.posts.length; i++) {
-        if (this.posts[i].id == comment.postId)
-          this.posts[i].comments.push(comment);
+        if (this.posts[i].id == comment.postId) {
+          this.posts[i].comments = [...this.posts[i].comments, comment];
+          console.log(`Here's the new comments!`, this.posts[i]);
+        }
       }
     },
     editPost(post) {

@@ -45,17 +45,6 @@
             </v-list-item-content>
           </v-list-item>
         </router-link>
-
-        <router-link to="/about">
-          <v-list-item link>
-            <v-list-item-action>
-              <v-icon>mdi-yin-yang</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>About</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </router-link>
       </v-list>
     </v-navigation-drawer>
 

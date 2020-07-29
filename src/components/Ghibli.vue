@@ -4,7 +4,7 @@
     <v-row justify="center">
       <v-col xs="12" sm="12" md="11" lg="10">
         <v-card>
-          <v-card-text
+          <v-card-text class="pa-10"
             >Hey the Studio Ghibli api doesn't have any images, and a lot of the
             data isn't interconnected, but each film is like a relaxing disney
             film that's really soothing. I got accustomed to all the different
