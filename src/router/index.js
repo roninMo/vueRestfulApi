@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Home from "../components/Home.vue";
+// import Home from "../components/Home.vue";
 // import About from "../components/About.vue";
 import Ghibli from "../components/Ghibli.vue";
 import Rick from "../components/Rick.vue";
@@ -13,12 +13,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: () => import("../components/About.vue"), // webpackChunkName: "about"
+    component: () => import("../components/About.vue"),
   },
   {
     path: "/rick-and-morty",

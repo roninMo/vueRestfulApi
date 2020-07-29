@@ -1,18 +1,34 @@
 <template>
   <div class="template-container mt-5">
     <v-row class="mb-6" justify="center">
-      <v-col xs="12" sm="12" md="10" lg="8">
+      <v-col
+        xs="12"
+        sm="12"
+        md="10"
+        lg="8"
+        v-for="post in posts"
+        v-bind:key="post.id"
+      >
         <v-card dark>
-          <v-card-title class="c-t">Title</v-card-title>
-          <v-card-subtitle class="text-left c-t">User name</v-card-subtitle>
-          <v-card-text class="text-left"> Post description</v-card-text>
+          <v-card-title class="c-t">{{ post.title }}</v-card-title>
+          <v-card-subtitle class="text-left c-t"
+            >User {{ post.id }}</v-card-subtitle
+          >
+          <v-card-text class="text-left">{{ post.body }}</v-card-text>
 
           <v-card-actions>
-            <v-btn text color="warning accent-4">
-              Edit
-            </v-btn>
+            <!-- Edit post button and modal -->
+            <EditPost
+              v-bind:postId="post.id"
+              v-on:edit-post-pass="editPostPass"
+            />
 
-            <v-btn text color="red accent-4">
+            <!-- Delete post button -->
+            <v-btn
+              text
+              color="red accent-4"
+              @click="$emit('del-post', post.id)"
+            >
               Delete
             </v-btn>
           </v-card-actions>
@@ -22,14 +38,24 @@
             <v-card-subtitle class="text-left com-t">Comments</v-card-subtitle>
 
             <!-- Comments loop -->
-            <v-card class="mb-2">
-              <v-card-title class="text-left comment">User 'name'</v-card-title>
-              <v-card-subtitle class="text-left comment">email</v-card-subtitle>
-
-              <v-card-text class="text-left comment"
-                >Card body text heyo</v-card-text
+            <div class="conditional" v-if="post.comments != null">
+              <v-card
+                class="mb-2 comment-card"
+                v-for="comment in post.comments"
+                v-bind:key="comment.id"
               >
-            </v-card>
+                <v-card-title class="text-left comment comment-title"
+                  >User: {{ comment.name }}</v-card-title
+                >
+                <v-card-subtitle class="text-left comment comment-title">{{
+                  comment.email
+                }}</v-card-subtitle>
+
+                <v-card-text class="text-left comment">{{
+                  comment.body
+                }}</v-card-text>
+              </v-card>
+            </div>
           </v-card-text>
 
           <!-- Search  -->
@@ -44,7 +70,9 @@
               </v-col>
 
               <v-col xs="2" sm="2" md="2" lg="2">
-                <v-btn color="success" @click="createComment">Send</v-btn>
+                <v-btn color="success" @click="createComment(post.id)"
+                  >Send</v-btn
+                >
               </v-col>
             </v-row>
           </v-form>
@@ -54,57 +82,29 @@
   </div>
 </template>
 
-<!-- 
-Add Comments,
-Edit/Delete Posts
-
-!!!!
-This would be the incoming post data, and I'm going to change the cards above to be v-for elements for the posts and the 
-respective comments that each has. How do I pull in the postId of each into the createComment function?
-
-{
-"userId": 1,
-"id": 1,
-"title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-"body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-},
-{
-"userId": 1,
-"id": 2,
-"title": "qui est esse",
-"body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-},
-{
-"userId": 1,
-"id": 3,
-"title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-"body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
-},
-{
-"userId": 1,
-"id": 4,
-"title": "eum et est occaecati",
-"body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
-},
--->
-
 <script>
+import EditPost from "./EditPost";
+
 export default {
   name: "Posts",
+  components: { EditPost },
   props: ["posts"],
   data: () => ({
     comment: "",
   }),
   methods: {
-    createComment() {
+    createComment(id) {
       const newComment = {
-        postId: ,
+        postId: id,
         name: "Randy Butternubs",
         email: "exampleEmail@someEmail.com",
         body: this.comment,
       };
       this.$emit("create-comment", newComment);
-      this.title = "";
+      this.comment = "";
+    },
+    editPostPass(editPostData) {
+      this.$emit("edit-post", editPostData);
     },
   },
 };
@@ -118,5 +118,13 @@ export default {
 
 .com-t {
   font-size: 1.2rem;
+}
+
+.comment-card {
+  border: 1px solid grey;
+  transition: border 340ms;
+}
+.comment-card:hover {
+  border: 1px solid rgb(33, 150, 243);
 }
 </style>

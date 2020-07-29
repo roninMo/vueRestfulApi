@@ -44,16 +44,14 @@ export default {
       .get(`https://jsonplaceholder.typicode.com/posts?_limit=5`)
       .then((res) => {
         this.posts = res.data;
+        console.log(`These are the posts`, this.posts);
         for (let i = 0; i < this.posts.length; i++) {
+          this.posts[i].comments = null;
           axios
             .get(
-              `https://jsonplaceholder.typicode.com/posts/${this.posts[i].id}`
+              `https://jsonplaceholder.typicode.com/post/${this.posts[i].id}/comments`
             )
-            .then((resp) => {
-              this.posts[i].comments = resp.data;
-              if (i == this.posts.length - 1)
-                console.log(`Here's the return data!`);
-            })
+            .then((resp) => (this.posts[i].comments = resp.data))
             .catch((err) => console.log(err));
         }
       })
@@ -63,8 +61,14 @@ export default {
     addComment(comment) {
       axios
         .post(`https://jsonplaceholder.typicode.com/posts`, comment)
-        .then((res) => console.log(`Successfully created post!`, res))
+        .then((res) => console.log(`Successfully created comment!`, res))
         .catch((err) => console.log(err));
+      for (let i = 0; i < this.posts.length; i++) {
+        if (this.posts[i].id == comment.postId) {
+          this.posts[i].comments = [...this.posts[i].comments, comment];
+          console.log(`Here's the new comments!`, this.posts[i]);
+        }
+      }
     },
     editPost(post) {
       axios
@@ -74,12 +78,19 @@ export default {
         })
         .then((res) => console.log(`Successfully edited post!`, res))
         .catch((err) => console.log(err));
+      for (let i = 0; i < this.posts.length; i++) {
+        if (this.posts[i].id == post.id) {
+          this.posts[i].title = post.title;
+          this.posts[i].body = post.body;
+        }
+      }
     },
     deletePost(id) {
       axios
         .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((res) => console.log(`Successfully deleted post!`, res))
         .catch((err) => console.log(err));
+      this.posts = this.posts.filter((post) => post.id != id);
     },
   },
 };
